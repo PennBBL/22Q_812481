@@ -1,5 +1,5 @@
 '''
-Heuristic to curate the 22Q project.
+Heuristic to curate the 22Q_812481 project.
 Katja Zoner
 Updated: 02/19/2021
 '''
