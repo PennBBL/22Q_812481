@@ -1,7 +1,7 @@
 '''
 Heuristic to curate the 22Q_812481 project.
 Katja Zoner
-Updated: 02/19/2021
+Updated: 03/05/2021
 '''
 
 import os
@@ -151,23 +151,43 @@ IntendedFor = {
         '{session}/func/sub-{subject}_{session}_task-idemo_bold.nii.gz',
         '{session}/dwi/sub-{subject}_{session}_run-01_dwi.nii.gz',
         '{session}/dwi/sub-{subject}_{session}_run-02_dwi.nii.gz'
-        #'{session}/perf/sub-{subject}_{session}_acq-se_asl.nii.gz'
+        '{session}/perf/sub-{subject}_{session}_acq-se_asl.nii.gz'
     ]
 }
-##TODO: try to attach to session only if asl scans are present
+
 def AttachToSession():
-    ## TODO: Is this correct?
     NUM_VOLUMES=40
     data = ['control', 'label'] * NUM_VOLUMES
     data = '\n'.join(data)
     data = 'volume_type\n' + data # the data is now a string; perfect!
 
-    output_file = {
-        'name': '{subject}/{session}/perf/{subject}_{session}_aslcontext.tsv',
+    # define asl_context.tsv file
+    asl_context = {
+        'name': 'sub-{subject}/{session}/perf/sub-{subject}_{session}_acq-se_aslcontext.tsv',
         'data': data,
         'type': 'text/tab-separated-values'
     }
-    return output_file
+
+    import pandas as pd 
+
+    df = pd.read_csv("info/task-idemo_events.tsv", sep='\t') 
+
+    # define idemo events.tsv file
+    idemo_events = {
+        'name': 'sub-{subject}/{session}/func/sub-{subject}_{session}_task-idemo_events.tsv',
+        'data': df.to_csv(index=False, sep='\t'),
+        'type': 'text/tab-separated-values'
+    }
+
+    '''
+    # define jolo events.tsv file
+    jolo_events = {
+        'name': 'sub-{subject}/{session}/func/sub-{subject}_{session}_task-jolo_events.tsv',
+        'data': df.to_csv(index=False, sep='\t'),
+        'type': 'text/tab-separated-values'
+    }
+    '''
+    return [asl_context, idemo_events]
 
 ####################### Rename session and subject labels #######################
 
