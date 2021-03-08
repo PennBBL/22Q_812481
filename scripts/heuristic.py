@@ -111,34 +111,26 @@ MetadataExtras = {
     #},
     # ASL params hardcoded from PNC_CS ASL metadata
     asl: {
-        "AcquisitionDuration": 123,
-        "ArterialSpinLabelingType": "PCASL",
-        "AverageB1LabelingPulses": 0,
-        "AverageLabelingGradient": 34,
-        "BackgroundSuppression": True,
-        #"BackgroundSuppressionLength": 2,
-        #"BackgroundSuppressionPulseTime": 2,
-        "BolusCutOffDelayTime": 0,
-        "BolusCutOffFlag": False,
-        "BolusCutOffTechnique": False,
-        "BolusCutOffTimingSequence": False,
+        #"AcquisitionDuration": 123,
+        "ArterialSpinLabelingType": "PCASL", # required
+        #"AverageB1LabelingPulses": 0,
+        #"AverageLabelingGradient": 34,
+        "BackgroundSuppression": False, # required
         "InterPulseSpacing": 4,
         "LabelingDistance": 2,
-        "LabelingDuration": 1.5088,
+        "LabelingDuration": 1.2, # required 
         "LabelingEfficiency": 0.72,
-        #"LabelingOrientation": "",
-        "LabelingSlabLocation": "X",
-        "LabelingSlabThickness": 2,
-        "LabelingType": "PCASL",
-        "LookLocker": True,
-        "M0Type": 1,
-        "PASLType": "",
+        #"LabelingOrientation": "", #should be array
+        "LabelingSlabLocation": "X", # correct
+        "LabelingType": "PCASL", #?? unsure
+        #"LookLocker": True,
+        "M0Type": "Absent", # required 
         "PCASLType": "balanced",
-        "PostLabelingDelay": 1.2,
-        "PulseDuration": 1.5088,
-        "PulseSequenceDetails": "WIP",
+        "PostLabelingDelay": 1.517, # required
+        #"PulseDuration": 1.5088,
+        #"PulseSequenceDetails": "WIP",
         "PulseSequenceType": "2D",
-        "SliceSelectiveLabelingGradient": 45
+        "SliceSelectiveLabelingGradient": 45 #not that important,  but correct
         #"VascularCrushingVenc": 2
     }
 }
@@ -158,11 +150,11 @@ IntendedFor = {
         '{session}/func/sub-{subject}_{session}_task-jolo_bold.nii.gz',
         '{session}/func/sub-{subject}_{session}_task-idemo_bold.nii.gz',
         '{session}/dwi/sub-{subject}_{session}_run-01_dwi.nii.gz',
-        '{session}/dwi/sub-{subject}_{session}_run-02_dwi.nii.gz',
-        '{session}/perf/sub-{subject}_{session}_acq-se_asl.nii.gz'
+        '{session}/dwi/sub-{subject}_{session}_run-02_dwi.nii.gz'
+        #'{session}/perf/sub-{subject}_{session}_acq-se_asl.nii.gz'
     ]
 }
-
+##TODO: try to attach to session only if asl scans are present
 def AttachToSession():
     ## TODO: Is this correct?
     NUM_VOLUMES=40
