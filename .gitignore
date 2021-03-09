@@ -3,3 +3,4 @@
 *info/
 *plots/
 *.DS_Store*
+*__pycache__*
