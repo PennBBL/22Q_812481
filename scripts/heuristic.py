@@ -1,7 +1,7 @@
 '''
 Heuristic to curate the 22Q_812481 project.
 Katja Zoner
-Updated: 03/05/2021
+Updated: 03/11/2021
 '''
 
 import os
@@ -22,8 +22,8 @@ rest_bold_124 = create_key(
     'sub-{subject}/{session}/func/sub-{subject}_{session}_task-rest_acq-singleband_bold')
 demo = create_key(
     'sub-{subject}/{session}/func/sub-{subject}_{session}_task-idemo_bold')
-jolo = create_key(
-    'sub-{subject}/{session}/func/sub-{subject}_{session}_task-jolo_bold')
+#jolo = create_key(
+#    'sub-{subject}/{session}/func/sub-{subject}_{session}_task-jolo_bold')
 
 # Diffusion weighted scans
 dwi_run1 = create_key(
@@ -77,8 +77,8 @@ def infotodict(seqinfo):
             get_latest_series(demo, s)
         elif "restbold" in protocol:
             get_latest_series(rest_bold_124, s)
-        elif "jolo" in protocol:
-            get_latest_series(jolo, s)
+        #elif "jolo" in protocol:
+        #    get_latest_series(jolo, s)
 
         ## TODO: Is this correct?
         # Fieldmap scans
@@ -120,7 +120,6 @@ MetadataExtras = {
         "LabelingDistance": 2,
         "LabelingDuration": 1.2, # required 
         "LabelingEfficiency": 0.72,
-        #"LabelingOrientation": "", #should be array
         "LabelingSlabLocation": "X", # correct
         "LabelingType": "PCASL", #?? unsure
         #"LookLocker": True,
@@ -139,7 +138,7 @@ MetadataExtras = {
 IntendedFor = {
     b0_phase: [
         '{session}/func/sub-{subject}_{session}_task-rest_acq-singleband_bold.nii.gz',
-        '{session}/func/sub-{subject}_{session}_task-jolo_bold.nii.gz',
+        #'{session}/func/sub-{subject}_{session}_task-jolo_bold.nii.gz',
         '{session}/func/sub-{subject}_{session}_task-idemo_bold.nii.gz',
         '{session}/dwi/sub-{subject}_{session}_run-01_dwi.nii.gz',
         '{session}/dwi/sub-{subject}_{session}_run-02_dwi.nii.gz',
@@ -147,7 +146,7 @@ IntendedFor = {
     ],
     b0_mag: [
         '{session}/func/sub-{subject}_{session}_task-rest_acq-singleband_bold.nii.gz',
-        '{session}/func/sub-{subject}_{session}_task-jolo_bold.nii.gz',
+        #'{session}/func/sub-{subject}_{session}_task-jolo_bold.nii.gz',
         '{session}/func/sub-{subject}_{session}_task-idemo_bold.nii.gz',
         '{session}/dwi/sub-{subject}_{session}_run-01_dwi.nii.gz',
         '{session}/dwi/sub-{subject}_{session}_run-02_dwi.nii.gz'
