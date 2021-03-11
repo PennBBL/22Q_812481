@@ -56,7 +56,7 @@ def infotodict(seqinfo):
 
     # Info dictionary to map series_id's to correct create_key key
     info = {t1w: [],
-            rest_bold_124: [],  demo: [], jolo: [],
+            rest_bold_124: [],  demo: [], #jolo: [],
             dwi_run1: [], dwi_run2: [],
             b0_mag: [], b0_phase: [],
             asl: []
