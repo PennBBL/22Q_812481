@@ -1,6 +1,7 @@
-# To add a new cell, type '# %%'
-# To add a new markdown cell, type '# %% [markdown]'
-#
+##
+##
+##
+
 import flywheel
 import logging
 import sys
@@ -57,6 +58,10 @@ fields_for_removal = [
 
 
 def remove_metadata(client):
+    '''
+    Remove metadata fields from nifti files across the project 
+    based on hard-coded list, fields_for_removal. 
+    '''
 
     # Get project object
     project = client.projects.find_first('label="{}"'.format(project_label))
@@ -71,9 +76,9 @@ def remove_metadata(client):
         sessions = [s for s in sessions if s.label in session_labels]
 
     assert sessions, "No sessions found!"
-    logger.info("The following metadata fields will be removed: \n\t{}".format("\n\t".join(sorted(fields_for_removal))))
+    logger.info("The following metadata fields will be removed: \n\t{}".format(
+        "\n\t".join(sorted(fields_for_removal))))
     logger.info(f"Metadata fields will be removed from {len(sessions)} sessions.\n")
-
 
     # Get acquisitions in each session
     i = 0

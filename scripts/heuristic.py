@@ -52,7 +52,7 @@ def infotodict(seqinfo):
     subindex: sub index within group
     """
 
-    last_run = len(seqinfo)
+    #last_run = len(seqinfo)
 
     # Info dictionary to map series_id's to correct create_key key
     info = {t1w: [],
