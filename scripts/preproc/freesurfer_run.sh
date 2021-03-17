@@ -1,10 +1,9 @@
 #!/bin/bash
 
-'''
-ssh singularity01
 
+#ssh singularity01
 # run from  project/bbl_projects/22Q dir
-'''
+
 
 unset SINGULARITYENV_TMPDIR
 export SINGULARITYENV_FS_LICENSE=~/22Q/images/license.txt
