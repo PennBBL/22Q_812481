@@ -129,6 +129,7 @@ MetadataExtras = {
         #"PulseDuration": 1.5088,
         #"PulseSequenceDetails": "WIP",
         "PulseSequenceType": "2D",
+        "RepetitionTimePreparation": 0, # required
         "SliceSelectiveLabelingGradient": 45 #not that important,  but correct
         #"VascularCrushingVenc": 2
     }
