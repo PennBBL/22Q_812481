@@ -1,10 +1,6 @@
 #!/bin/bash
 
-module load freesurfer/7.1.1
-export FREESURFER_HOME=/appl/freesurfer-7.1.1
-source $FREESURFER_HOME/SetUpFreeSurfer.sh
-
-export LOGS_DIR=/home/kzoner/logs/fs
+export LOGS_DIR=/home/kzoner/logs/freesurfer
 
 project=/project/bbl_projects/22Q
 input_dir=${project}/data/bids_directory
@@ -27,11 +23,17 @@ for img in $imgList; do
 	
 	cat <<- EOS > ${jobscript}
 		#!/bin/bash
+		
+		module load freesurfer/7.1.1
+		export FREESURFER_HOME=/appl/freesurfer-7.1.1
+		source $FREESURFER_HOME/SetUpFreeSurfer.sh
+	
 		$FREESURFER_HOME/bin/recon-all -i $img -sd $subDir -s $sess -all
 	EOS
 
+	chmod +x ${jobscript}
+	#bsub -q bbl_normal -m linc1 ${jobscript}
 	bsub -e $LOGS_DIR/${subj}.e -o $LOGS_DIR/${subj}.o -q bbl_normal -m linc1 ${jobscript}
-	break
 done
 
 
