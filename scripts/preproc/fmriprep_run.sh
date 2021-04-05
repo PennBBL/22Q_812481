@@ -1,20 +1,32 @@
 #!/bin/bash
 
-subject=17867
 project=/project/bbl_projects/22Q
+mkdir -p ${project}/scripts/jobscripts/fmriprep_jobscripts
 
-SIF=${project}/images/fmriprep_latest.sif
-#BIDSDIR=${project}/data/bids_directory
-TMPDIR=${project}/tmp
+SIF=${project}/images/fmriprep_20.2.1.sif
 
-singularity run --cleanenv \
-  -B ${project}:/mnt \
-  -B ${project}/tmp:/tmp \
-  ${SIF} \
-  /mnt/data/bids_directory /mnt/data/fmriprep participant \
-  --work-dir /tmp \
-  --participant_label $subject \
-  --fs-license-file /mnt/images/license.txt \
-  --stop-on-first-crash \
-  --skip-bids-validation \
-  --verbose
+subjList=`ls ${project}/data/bids_directory/`
+
+for subject in $subjList; do
+
+	echo SUBJECT: ${subject}
+
+	cat <<- EOS > ${project}/scripts/jobscripts/fmriprep_jobscripts/${subject}.sh
+		#!/bin/bash
+		
+		singularity run --cleanenv \\
+		-B ${project}/data/bids_directory:/bids \\
+		-B ${project}/data/preproc:/out \\
+		-B ${project}/images/license.txt:/license/txt \\
+		-B ${project}/work:/work \\
+		${SIF} \\
+		/bids /out participant \\
+		--participant-label ${subject} \\
+		--work-dir /work \\
+		--fs-license-file /license.txt \\
+		--stop-on-first-crash \\
+		--skip-bids-validation
+		
+		EOS
+done
+
