@@ -15,7 +15,7 @@ datatypes = ['aparc_area_lh', 'aparc_area_rh', 'aparc_meancurv_lh', 'aparc_meanc
     'rh_a2009s_thickness', 'rh_a2009s_volume', 'rh_DKTatlas_area', 'rh_DKTatlas_meancurv',
     'rh_DKTatlas_thickness', 'rh_DKTatlas_volume', 'wmparc_stats']
 
-basedir = '/project/bbl_projects/data'
+basedir = '/project/bbl_projects/22Q/data'
 
 for datatype in datatypes:
     files = glob.glob(basedir+'/freeqc/sub*/ses*/*'+datatype+'.csv')
