@@ -1,6 +1,7 @@
 ### This script combines each type of freeqc output into a csv
 ###
 
+import os
 import glob
 import csv
 import pandas as pd
@@ -16,10 +17,14 @@ datatypes = ['aparc_area_lh', 'aparc_area_rh', 'aparc_meancurv_lh', 'aparc_meanc
     'rh_DKTatlas_thickness', 'rh_DKTatlas_volume', 'wmparc_stats']
 
 basedir = '/project/bbl_projects/22Q/data'
+outdir = basedir+'/tabulated'
+
+if not os.path.exists(outdir):
+    os.mkdir(outdir)
 
 for datatype in datatypes:
     files = glob.glob(basedir+'/freeqc/sub*/ses*/*'+datatype+'.csv')
     df = pd.concat((pd.read_csv(f, header = 0) for f in files))
     #if 'bblid' not in df.columns:
     #    df = df.rename(columns={'/scripts/idcols.py':'bblid'})
-    df.to_csv(basedir+'/tabulated/'+datatype+'_'+datetime.today().strftime('%Y-%m-%d')+'.csv', index=False)
+    df.to_csv(outdir+'/'+datatype+'_'+datetime.today().strftime('%Y-%m-%d')+'.csv', index=False)
