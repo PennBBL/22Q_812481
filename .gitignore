@@ -2,9 +2,13 @@
 data/
 info/
 plots/
+work/
+scripts/jobscripts/
+scripts/preproc/fs_singularity_run.sh
 *.DS_Store*
 *__pycache__*
 *.vscode
-scripts/jobscripts/
-scripts/preproc/fs_singularity_run.sh
-work/
+.RData
+.Rhistory
+.Rproj.user/
+22Q.Rproj
