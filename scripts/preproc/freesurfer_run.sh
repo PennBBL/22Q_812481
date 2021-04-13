@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export LOGS_DIR=/home/kzoner/logs/freesurfer
+export LOGS_DIR=/home/kzoner/logs/22Q/freesurfer
 
 project=/project/bbl_projects/22Q
 input_dir=${project}/data/bids_directory
