@@ -1,7 +1,10 @@
 *~
-*data/
-*info/
-*plots/
+data/
+info/
+plots/
 *.DS_Store*
 *__pycache__*
 *.vscode
+scripts/jobscripts/
+scripts/preproc/fs_singularity_run.sh
+work/
