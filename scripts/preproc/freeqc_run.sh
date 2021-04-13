@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export LOGS_DIR=/home/kzoner/logs/freeqc
+export LOGS_DIR=/home/kzoner/logs/22Q/freeqc
 
 project=/project/bbl_projects/22Q
 
