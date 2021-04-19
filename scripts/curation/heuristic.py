@@ -1,7 +1,7 @@
 '''
 Heuristic to curate the 22Q_812481 project.
 Katja Zoner
-Updated: 03/11/2021
+Updated: 04/16/2021
 '''
 
 import os
@@ -36,6 +36,8 @@ b0_mag = create_key(
     'sub-{subject}/{session}/fmap/sub-{subject}_{session}_magnitude{item}')
 b0_phase = create_key(
     'sub-{subject}/{session}/fmap/sub-{subject}_{session}_phase{item}')
+b0_phasediff = create_key(
+    'sub-{subject}/{session}/fmap/sub-{subject}_{session}_phasediff')
 
 # ASL scans
 asl = create_key(
@@ -58,7 +60,7 @@ def infotodict(seqinfo):
     info = {t1w: [],
             rest_bold_124: [],  demo: [], #jolo: [],
             dwi_run1: [], dwi_run2: [],
-            b0_mag: [], b0_phase: [],
+            b0_mag: [], b0_phase: [], b0_phasediff: [],
             asl: []
             }
 
@@ -83,9 +85,15 @@ def infotodict(seqinfo):
         ## TODO: Is this correct?
         # Fieldmap scans
         elif "b0map" in protocol and "M" in s.image_type:
-            info[b0_mag].append(s.series_id)
+            get_latest_series(b0_mag, s)
         elif "b0map" in protocol and "P" in s.image_type:
-            info[b0_phase].append(s.series_id)
+            if "v3" in protocol:
+                info[b0_phase].append(s.series_id)
+                get_latest_series(b0_phase, s)
+
+            else:
+                info[b0_phasediff].append(s.series_id)
+                get_latest_series(b0_phasediff, s)
 
         # dwi
         elif "dti" in protocol and not s.is_derived:
@@ -105,10 +113,10 @@ def infotodict(seqinfo):
 
 ################## Hardcode required params in MetadataExtras ##################
 MetadataExtras = {    
-    #b0_phase: {
-    #    "EchoTime1": 0.00471,
-    #    "EchoTime2": 0.00717
-    #},
+    b0_phasediff: {
+        "EchoTime1": 0.00471,
+        "EchoTime2": 0.00717
+    },
     # ASL params hardcoded from PNC_CS ASL metadata
     asl: {
         #"AcquisitionDuration": 123,
@@ -140,6 +148,13 @@ IntendedFor = {
     b0_phase: [
         '{session}/func/sub-{subject}_{session}_task-rest_acq-singleband_bold.nii.gz',
         #'{session}/func/sub-{subject}_{session}_task-jolo_bold.nii.gz',
+        '{session}/func/sub-{subject}_{session}_task-idemo_bold.nii.gz',
+        '{session}/dwi/sub-{subject}_{session}_run-01_dwi.nii.gz',
+        '{session}/dwi/sub-{subject}_{session}_run-02_dwi.nii.gz',
+        '{session}/perf/sub-{subject}_{session}_acq-se_asl.nii.gz'
+    ],
+    b0_phasediff: [
+        '{session}/func/sub-{subject}_{session}_task-rest_acq-singleband_bold.nii.gz',
         '{session}/func/sub-{subject}_{session}_task-idemo_bold.nii.gz',
         '{session}/dwi/sub-{subject}_{session}_run-01_dwi.nii.gz',
         '{session}/dwi/sub-{subject}_{session}_run-02_dwi.nii.gz',
