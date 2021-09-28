@@ -13,9 +13,6 @@ logging.basicConfig(
     format='%(levelname)s: %(message)s')
 logger = logging.getLogger('fw_remove_metadata')
 
-# Get API_KEY from FW profile
-API_KEY = "upenn.flywheel.io:47vhOSDkwMxGRNxFq0"
-
 # Specify project (required)
 project_label = "22Q_812481"
 
@@ -102,7 +99,7 @@ def remove_metadata(client):
 
 def main():
     # Get client
-    fw = flywheel.Client(API_KEY)
+    fw = flywheel.Client()
     assert fw, "Your Flywheel CLI credentials aren't set!"
 
     # Remove specified list of metadata fields from project / specified sessions
